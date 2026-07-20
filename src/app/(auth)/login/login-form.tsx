@@ -40,7 +40,11 @@ export function LoginForm({ dict }: { dict: Dictionary }) {
         <p className="rounded-md bg-state-danger-bg px-3 py-2 text-sm text-state-danger">
           {state.error === "disabled"
             ? dict.auth.accountDisabled
-            : dict.auth.invalidCredentials}
+            : state.error === "unconfirmed"
+              ? dict.auth.emailNotConfirmed
+              : state.error === "config"
+                ? dict.auth.configError
+                : dict.auth.invalidCredentials}
         </p>
       )}
       <Button type="submit" className="w-full" disabled={pending}>

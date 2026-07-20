@@ -2,7 +2,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-export type LoginState = { error?: "invalid" | "disabled" } | null;
+export type LoginState = { error?: "invalid" | "disabled" | "unconfirmed" | "config" } | null;
 
 export async function signIn(
   _prev: LoginState,
@@ -13,11 +13,22 @@ export async function signIn(
   if (!email || !password) return { error: "invalid" };
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  if (error || !data.user) return { error: "invalid" };
+  let data, error;
+  try {
+    ({ data, error } = await supabase.auth.signInWithPassword({ email, password }));
+  } catch {
+    // فشل الاتصال نفسه (رابط/مفتاح خاطئ) — ليس خطأ بيانات دخول
+    return { error: "config" };
+  }
+  if (error) {
+    const msg = (error.message ?? "").toLowerCase();
+    if (msg.includes("email not confirmed")) return { error: "unconfirmed" };
+    if (error.status === 400 || msg.includes("invalid login credentials"))
+      return { error: "invalid" };
+    // 401 مفتاح API غير صالح، أخطاء الشبكة، إلخ
+    return { error: "config" };
+  }
+  if (!data?.user) return { error: "invalid" };
 
   const { data: profile } = await supabase
     .from("profiles")

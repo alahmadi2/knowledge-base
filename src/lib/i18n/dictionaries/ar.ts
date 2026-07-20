@@ -10,6 +10,8 @@ export const ar = {
     signingIn: "جارٍ تسجيل الدخول…",
     invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة",
     accountDisabled: "هذا الحساب موقوف. تواصل مع مدير النظام.",
+    emailNotConfirmed: "الحساب موجود لكن بريده غير مؤكد. من لوحة Supabase → Authentication → Users: أنشئ الحساب بخيار Auto Confirm User، أو استخدم أداة admin-setup.html.",
+    configError: "التطبيق لا يستطيع الوصول إلى Supabase — المشكلة في الإعدادات وليس في بياناتك. افتح /api/health على نفس الرابط لمعرفة السبب بدقة، وتأكد من متغيرات البيئة في Netlify ثم أعد النشر.",
     signOut: "تسجيل الخروج",
     welcomeLine: "المرجع الرسمي الموحد لمعلومات الشركة",
   },

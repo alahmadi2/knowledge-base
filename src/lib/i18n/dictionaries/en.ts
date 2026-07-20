@@ -12,6 +12,8 @@ export const en: Dictionary = {
     signingIn: "Signing in…",
     invalidCredentials: "Incorrect email or password",
     accountDisabled: "This account is disabled. Contact the system administrator.",
+    emailNotConfirmed: "The account exists but its email is not confirmed. In Supabase → Authentication → Users, create the user with Auto Confirm User, or use the admin-setup.html tool.",
+    configError: "The app cannot reach Supabase — this is a configuration issue, not your credentials. Open /api/health on this site to see the exact cause, verify the environment variables in Netlify, then redeploy.",
     signOut: "Sign out",
     welcomeLine: "The official unified reference for company knowledge",
   },
