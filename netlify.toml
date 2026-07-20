@@ -1,0 +1,6 @@
+# إعداد Netlify لتشغيل Next.js (يُبنى على خوادم Netlify — لا رفع يدوي)
+[build]
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
